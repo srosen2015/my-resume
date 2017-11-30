@@ -1,10 +1,7 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, session, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'qwertyuiop'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
@@ -26,28 +23,24 @@ class Course(db.Model):
     description = db.Column(db.Text)
     professor_id = db.Column(db.Integer, db.ForeignKey('professors.id'))
 
-
-
 @app.route('/')
 def home():
     return render_template('home.html')
 
 
 @app.route('/courses')
-def get_all_courses():
+def courses():
     courses = [
-        'MISY262',
-        'MISY350',
-        'MISY225',
-        'BUAD309'
+    ['MISY 262', 'Fundamentals of Business Analytics', 'Learning how to use the basic tools and methods of data analytics for business'],
+    ['MISY 350', 'Web Application Development', 'Fundamentals of web development, including Python and Flask'],
+    ['MISY 225', 'Introduction to Programming Business Applications', 'Learning how to use Java'],
+    ['BUAD 309', 'Introduction to Organization Behavior', 'Management of the marketing functions in different business aspects']
     ]
-    return render_template('all-courses.html', courses=courses)
-
+    return render_template('courses.html', courses=courses)
 
 @app.route('/about')
 def about():
     return render_template('about.html')
-
 
 @app.route('/professors')
 def show_all_professors():
@@ -116,5 +109,4 @@ def add_courses():
 
 
 if __name__ == '__main__':
-
     app.run()
