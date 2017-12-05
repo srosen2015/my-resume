@@ -27,6 +27,7 @@ All Courses
       <th>Course Number</th>
       <th>Title</th>
       <th>Description</th>
+      <th>Professor</th>
     </tr>
   </thead>
   <tbody>
@@ -36,9 +37,13 @@ All Courses
         <td>{{course.course_number}}</td>
         <td>{{course.title}}</td>
         <td>{{course.description}}</td>
+        <td>{{course.professor.name}}</td>
         <td>
           <a href="/course-directory/edit/{{course.id}}" class ="btn btn-success" role="button" aria-disabled="true"> Edit</a>
         </td>
+        <td>
+         <a href="/course-directory/delete/{{course.id}}" class ="btn btn-danger" role="button" aria-disabled="true"> Delete</a>
+       </td>
   </tr>
    {% endfor %}
  </tbody>
